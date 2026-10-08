@@ -1,0 +1,232 @@
+setup and installations from zero.
+
+docker architecter
+docker images
+docker vol
+docker net how to write dockerfile
+docker compose
+docker cli
+
+
+https://dexter-13.gitbook.io/oussama-elhadraoui/docker-doc
+
+file:///run/user/103873/doc/698b4cdd/Inception_Learners_Guide.pdf
+
+https://labs.iximiuz.com/tutorials/container-image-from-scratch
+
+
+learn:
+    Dockerfile instruction.
+    Base Layer. (from what image build on ?)
+    NetWorks
+    Volumes (make the outside folder for te current container.)
+    how container connect with Docker Volume
+    what happend when container stops
+    what is hypervisor and how it works
+    what is enginx, wordpress, db
+    why we have perfect usage of memory with docker against the VM.
+    microservices arctucther
+    docker d ?
+    Namespaces
+    os kernel syscalls
+    control groups (monitor of using memory and resources)
+    writeable layer
+
+
+
+isolated view = namespace (addresses memory)
+
+
+
+
+
+
+
+
+
+
+
+
+client is the (terminal or gui) that uses the apis
+
+                    YOU
+                     │
+              ┌──────┴──────┐
+              │             │
+             CLI            GUI
+        docker run ...   Docker Desktop
+              │             │
+              └──────┬──────┘
+                     │
+                Docker API
+                     │
+                     ▼
+          ┌─────────────────────┐
+          │    Docker Daemon    │
+          │      dockerd        │
+          └──────────┬──────────┘
+                     │
+        ┌────────────┼────────────┐
+        │            │            │
+        ▼            ▼            ▼
+     Images      Containers    Networks
+        │            │
+        │            ▼
+        │       ┌───────────┐
+        │       │ Container │
+        │       │   App     │
+        │       └───────────┘
+        │
+        │ pull / push
+        ▼
+   ┌───────────────┐
+   │ Docker Hub /  │
+   │   Registry    │
+   └───────────────┘
+
+
+
+                  USER
+                    │
+          ┌─────────┴─────────┐
+          │                   │
+         CLI                  GUI
+          │                   │
+          └─────────┬─────────┘
+                    │
+                    ▼
+              Docker Daemon
+                 dockerd
+                    │
+        ┌───────────┼───────────┐
+        │           │           │
+        ▼           ▼           ▼
+     Images     Containers   Networks
+                    │
+                    ▼
+              ┌───────────┐
+              │ Container │
+              │           │
+              │ Your App  │
+              └───────────┘
+                    │
+                    ▼
+             Operating System
+                    │
+                    ▼
+               Linux Kernel
+                    │
+                    ▼
+                Hardware
+
+
+
+                    YOU
+                     │
+              ┌──────┴──────┐
+              │             │
+             CLI            GUI
+              │             │
+              └──────┬──────┘
+                     │
+                 Docker API
+                     │
+                     ▼
+              ┌─────────────┐
+              │   dockerd   │
+              │Docker Daemon│
+              └──────┬──────┘
+                     │
+                     ▼
+              ┌─────────────┐
+              │  containerd │
+              └──────┬──────┘
+                     │
+                     ▼
+          ┌──────────────────────┐
+          │ containerd-shim-runc │
+          │        -v2           │
+          └──────────┬───────────┘
+                     │
+                     ▼
+                  ┌──────┐
+                  │ runc │
+                  └──┬───┘
+                     │
+                     ▼
+              ┌─────────────┐
+              │  CONTAINER  │
+              │             │
+              │   nginx     │
+              └─────────────┘
+                     │
+                     ▼
+                Linux Kernel
+
+                         USER
+                           │
+              ┌────────────┴────────────┐
+              │                         │
+          Docker CLI              Docker GUI
+          `docker ...`            Docker Desktop
+              │                         │
+              └────────────┬────────────┘
+                           │
+                    Docker REST API
+                           │
+                           ▼
+                  ┌─────────────────┐
+                  │     dockerd      │
+                  │  Docker daemon   │
+                  └────────┬────────┘
+                           │
+                           │ manages
+                           ▼
+                  ┌─────────────────┐
+                  │   containerd    │
+                  │ container       │
+                  │ lifecycle mgr   │
+                  └────────┬────────┘
+                           │
+                    creates/manages
+                           │
+                           ▼
+              ┌─────────────────────────┐
+              │ containerd-shim-runc-v2 │
+              │                         │
+              │  keeps container        │
+              │  lifecycle independent  │
+              │  of containerd          │
+              └────────────┬────────────┘
+                           │
+                           │ starts container
+                           ▼
+                       ┌───────┐
+                       │ runc  │
+                       │ OCI   │
+                       │ runtime│
+                       └───┬───┘
+                           │
+                           │ uses Linux kernel
+                           ▼
+              ┌─────────────────────────┐
+              │      LINUX KERNEL      │
+              │                         │
+              │ namespaces              │
+              │ cgroups                 │
+              │ capabilities            │
+              │ mounts                  │
+              │ networking              │
+              └────────────┬────────────┘
+                           │
+                           ▼
+                    ┌─────────────┐
+                    │  CONTAINER  │
+                    │             │
+                    │ nginx       │
+                    │ wordpress   │
+                    │ mariadb     │
+                    └─────────────┘
+
+
+

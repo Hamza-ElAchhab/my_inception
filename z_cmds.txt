@@ -1,0 +1,38 @@
+docker run
+docker ps --all
+docker container ls -a
+docker rm (id, name container)
+d image rm (name)
+d rmi (name)
+
+docker container run redis
+docker conatner ls
+docker container run -d redis (other terminal)
+
+docker container run -d redis:alpine
+docker image ls
+
+docker inspect redis (:version optional)
+
+docker logs (container_id, name)
+
+docker stats    ""
+
+d info
+
+d inspect --format='{{rage.NetworkSettings.Network}}{{IPAdress}}{{end}}' (container_id, name)
+
+docker conatner run --detach --publish 80:80 --name n1 nginx
+
+d container stop (name)
+
+d container start (name)
+
+every container has own EXPODEDPORTS
+
+d exec -it n1 bash --> service nginx (status,  reload, )stop
+
+
+
+
+

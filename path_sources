@@ -1,0 +1,41 @@
+https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/compiling-mariadb-from-source/compiling-mariadb-from-source-the-master-guide?utm_source=chatgpt.com
+
+https://mariadb.com/docs/server/mariadb-quickstart-guides/mariadb-connection-troubleshooting-guide?utm_source=chatgpt.com
+
+
+
+between client and server threr is a socket.
+
+/var/lib/mysql = أين تعيش قاعدة البيانات.
+/run/mysqld = معلومات يحتاجها MariaDB لكي يعمل ويتواصل أثناء التشغيل. temp
+
+أنت
+ │
+ │  SQL query
+ ↓
+MariaDB Client
+ │
+ │  يرسل الـ query عبر
+ │  /run/mysqld/mysqld.sock
+ ↓
+MariaDB Server (mysqld)
+ │
+ │  ينفذ الـ query
+ ↓
+/var/lib/mysql
+ │
+ │  يقرأ/يكتب البيانات
+ ↓
+MariaDB Server
+ │
+ │  النتيجة ترجع عبر socket
+ ↓
+MariaDB Client
+ │
+ ↓
+أنت
+
+
+
+
+
