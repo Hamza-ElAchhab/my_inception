@@ -6,10 +6,12 @@ RUN apt update   &&   apt install mariadb-server mariadb-client -y \
     && chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
 
-COPY conf/mariadb_server.cnf /etc/mariadb_server.cnf
-COPY tools/script.sh /usr/local/bin/script.sh
-RUN chmod +x usr/local/bin/script.sh
 
-EXPOSE 3306
+COPY conf/mariadb_server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-ENTRYPOINT ["/usr/local/bin/script.sh"]
+
+COPY tools/script.sh /script.sh
+RUN chmod +x /script.sh
+
+
+ENTRYPOINT ["/script.sh"]
