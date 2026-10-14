@@ -1,27 +1,22 @@
 FROM debian:bookworm
 
 RUN apt-get update && apt-get install -y \
-        # php8.2 \
         php8.2-cli \
         php8.2-fpm \
         php8.2-mysql \
-        php8.2-curl \
         mariadb-client \
         curl \
-        ca-certificates \
-        && mkdir -p /src_wordpress
-
-
-RUN curl -fsSL https://wordpress.org/latest.tar.gz -o /tmp/wordpress.tar.gz \
-    && tar -xzf /tmp/wordpress.tar.gz -C /src_wordpress --strip-components=1 \
-    && rm /tmp/wordpress.tar.gz
+        ca-certificates
 
 
 
-#PHP Archive
-RUN curl -fsSL https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar \
-    -o /wp.phar \
-    && chmod +x /wp.phar
+RUN curl https://wordpress.org/latest.tar.gz --output /zipped \
+    && tar -xzf /zipped\
+    && rm zipped
+
+
+
+RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /my_cli
 
 
 
@@ -29,10 +24,21 @@ COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 
 COPY tools/script.sh /script.sh
 
+#tikrari -R
+RUN chmod +x /script.sh && chown -R www-data:www-data /wordpress
 
-RUN chmod +x /script.sh && chown -R www-data:www-data /src_wordpress
+
+# www-data: namev of php-fpm
+
+# run it direct from docker without shell
+#exec form
+# SIGTERM
+# ENTRYPOINT ["/script.sh"]
 
 
-# how
+# using shell /bin/sh "/script.sh"
+# shell form
+
+
 ENTRYPOINT ["/script.sh"]
 
