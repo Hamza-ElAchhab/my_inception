@@ -14,4 +14,7 @@ COPY tools/script.sh /script.sh
 RUN chmod +x /script.sh
 
 
+
+# there is a different
 ENTRYPOINT ["/script.sh"]
+
