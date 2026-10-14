@@ -100,3 +100,9 @@ docker inspect net1
 
 
 docker exec cntr1 getent hosts mariadb
+
+docker  exec -it  wordpress_cntr proc/1/comm
+
+Transport Layer Security
+
+
