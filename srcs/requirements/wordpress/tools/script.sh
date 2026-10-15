@@ -23,7 +23,7 @@ DOMAIN_NAME=hamza.42.fr
 # done
 
 
-# هاد الأمر كينشئ wp-config.php باش WordPress يعرف كيفاش يتصل بـ MariaDB.
+# for connect
 if [ ! -f "$WP_PATH/wp-config.php" ]; then
 
         php /my_cli --allow-root --path="$WP_PATH" config create \
@@ -33,7 +33,7 @@ fi
 
 
 
-#كنشغّلو wp core install، اللي كيتصل بقاعدة البيانات وكيُنشئ جداول WordPress.
+
 if ! php /my_cli --allow-root --path="$WP_PATH" core is-installed; then
 
         php /my_cli --allow-root --path="$WP_PATH" core install --url="https://$DOMAIN_NAME" --title="$WP_TITLE" \
@@ -54,5 +54,4 @@ fi
 
 
 exec php-fpm8.2 -F
-
 
