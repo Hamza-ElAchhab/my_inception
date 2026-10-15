@@ -1,12 +1,11 @@
 FROM debian:bookworm
 
-RUN apt-get update && apt-get install -y \
+RUN apt update && apt install -y \
         php8.2-cli \
         php8.2-fpm \
-        php8.2-mysql \
         mariadb-client \
-        curl \
-        ca-certificates
+        curl\
+        php8.2-mysql
 
 
 
@@ -24,20 +23,11 @@ COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 
 COPY tools/script.sh /script.sh
 
-#tikrari -R
+
+
 RUN chmod +x /script.sh && chown -R www-data:www-data /wordpress
 
 
-# www-data: namev of php-fpm
-
-# run it direct from docker without shell
-#exec form
-# SIGTERM
-# ENTRYPOINT ["/script.sh"]
-
-
-# using shell /bin/sh "/script.sh"
-# shell form
 
 
 ENTRYPOINT ["/script.sh"]

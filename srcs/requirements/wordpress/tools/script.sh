@@ -17,13 +17,13 @@ WP_TITLE="My WordPress Site"
 DOMAIN_NAME=hamza.42.fr
 
 
+# # client
+# while ! mariadb-admin ping --host database_cntr -u"$MYSQL_USER" -p"$DB_PASS"; do
+#     sleep 1
+# done
 
-while ! mariadb-admin ping --host database_cntr -u"$MYSQL_USER" -p"$DB_PASS"; do
-    sleep 1
-done
 
-
-
+# هاد الأمر كينشئ wp-config.php باش WordPress يعرف كيفاش يتصل بـ MariaDB.
 if [ ! -f "$WP_PATH/wp-config.php" ]; then
 
         php /my_cli --allow-root --path="$WP_PATH" config create \
@@ -33,15 +33,17 @@ fi
 
 
 
+#كنشغّلو wp core install، اللي كيتصل بقاعدة البيانات وكيُنشئ جداول WordPress.
 if ! php /my_cli --allow-root --path="$WP_PATH" core is-installed; then
 
         php /my_cli --allow-root --path="$WP_PATH" core install --url="https://$DOMAIN_NAME" --title="$WP_TITLE" \
                 --admin_user="$WP_ADMIN_USER" --admin_password="$WP_ADMIN_PASS" \
-                --admin_email="$WP_ADMIN_EMAIL" --skip-email
+                --admin_email="$WP_ADMIN_EMAIL"
 fi
 
 
 
+# create second user behaid the admin
 if ! php /my_cli --allow-root --path="$WP_PATH" user get "$WP_USER"; then
 
         php /my_cli --allow-root --path="$WP_PATH" user create "$WP_USER" "$WP_USER_EMAIL" \
@@ -52,3 +54,5 @@ fi
 
 
 exec php-fpm8.2 -F
+
+

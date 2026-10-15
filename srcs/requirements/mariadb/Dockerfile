@@ -2,7 +2,6 @@ FROM debian:bookworm
 
 RUN apt update   &&   apt install mariadb-server mariadb-client -y \
     && mkdir -p /run/mysqld \
-    && mkdir -p /var/lib/mysql \
     && chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
 
@@ -15,6 +14,4 @@ RUN chmod +x /script.sh
 
 
 
-# there is a different
 ENTRYPOINT ["/script.sh"]
-
