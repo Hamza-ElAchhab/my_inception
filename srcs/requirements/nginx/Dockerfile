@@ -1,6 +1,6 @@
 FROM debian:bookworm
 
-RUN apt update && apt install -y nginx openssl
+RUN apt update && apt install nginx openssl -y
 
 
 COPY conf/my_config.conf /etc/nginx/conf.d/my_config.conf
@@ -12,6 +12,5 @@ RUN chmod +x /script.sh
 
 
 ENTRYPOINT ["/script.sh"]
+#exec change in the same proccess.
 
-
-# echo '<h1>Hello from Nginx HTTP</h1>' > /var/www/html/index.html
