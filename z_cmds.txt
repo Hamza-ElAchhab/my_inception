@@ -1,20 +1,5 @@
-docker run
-docker ps --all
-docker container ls -a
-docker rm (id, name container)
-d image rm (name)
-d rmi (name)
-
-docker container run redis
-docker conatner ls
-docker container run -d redis (other terminal)
-
-docker container run -d redis:alpine
-docker image ls
 
 docker inspect redis (:version optional)
-
-docker logs (container_id, name)
 
 docker stats    ""
 
@@ -24,42 +9,20 @@ d inspect --format='{{rage.NetworkSettings.Network}}{{IPAdress}}{{end}}' (contai
 
 docker conatner run --detach --publish 80:80 --name n1 nginx
 
-d container stop (name)
 
-d container start (name)
 
-every container has own EXPODEDPORTS
+docker history nginx --> layers of build
 
-d exec -it n1 bash --> service nginx (status,  reload, )stop
-
-docker inspect my_ingnx
-
-root@2ec06433db87:/# service nginx status
-root@2ec06433db87:/# service nginx stop
-root@1b5d15e7db3f:/# service nginx reload
-
-docker history nginx --> كيعرض ليك التاريخ ديال بناء
 Docker image سميتها nginx، يعني الطبقات (layers) اللي تكوّنات منها هاد الـ image والأوامر المرتبطة بكل طبقة.
 
 docker inspect none
 
-docker run --detach --name my_cntr --env MARIA_ROOT_PASSWORD_FILE="1234"  mariadb
-if any probleme show the logs
 
-docker inspect my_cntr
-
-docker volume create my_volume
 
 run -d --name my_mariadb -e MARIADB_ROOT_PASSWORD=1234 -v my_volume:/var/lib/mysql mariadb
 
-docker exec --interactive --tty my_mariadb bash: create a database from a container and remove
-the container and create another cntr and see the database.
 
-docker run -d --name hamza -e MARIADB_ROOT_PASSWORD=1234 -v my_volume mariadb
-docker exec --interactive --tty hamza bash
-root@bf257d700d30:/# mariadb root -u -p
 
-bind_mount -> folder shared.
 
 docker run -it --name hamza -v $(pwd)/shrad_folder:/the_shared_folder -e MARIADB_ROOT_PASSWORD=1234  mariadb
 docker run -d --name hamza -v $(pwd)/shrad_folder:/the_shared_folder -e MARIADB_ROOT_PASSWORD=1234  mariadb
@@ -73,36 +36,30 @@ docker run -d \
   nginx
 http://localhost:8080/login.html
 
+
 -p == --publish
 host:container     ports
 
-docker Network
-docker network ls
-docker network inspect none
 
-docker run -d -it ubuntu
-
-docker network inspect bridge -> show to you how many container in this type currently, and network ip ...
-
-when the conatner exited he free the net ip of some type
-
-docker network create --driver bridge net1
-docker network ls
-docker inspect net1
-docker run --network=net1 -d -it ubuntu
-docker inspect net1
-docker run --network=net1 -d -it ubuntu
-docker inspect net1
-
-
-
-
+history
 
 
 docker exec cntr1 getent hosts mariadb
 
-docker  exec -it  wordpress_cntr proc/1/comm
 
 Transport Layer Security
+
+docker network create --driver net1
+docker network create --driver bridge --subnet 133.43.0.0/16 koko_net
+
+you can add a cntr to this net
+
+d net disconnect net1 cntr
+d net connect net1 cntr
+
+d run --network=my -it alpine ash
+ping 100.100.100.2
+
+
 
 

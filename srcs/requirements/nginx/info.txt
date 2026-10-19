@@ -1,0 +1,78 @@
+
+
+# two types of directives:
+
+# 1/ simple d: includes only name and parameter.
+# 2/ block d: include {simple ds}
+
+
+
+# Main context
+# الإعدادات العامة
+
+# events 
+# إعدادات معالجة الاتصالات
+
+
+# http 
+# إعدادات HTTP
+
+
+# server 
+# إعدادات موقع أو virtual server
+
+
+# location
+# كيفاش نتعامل مع URL معيّن
+
+
+events وhttp : كاينين فـ المستوى الرئيسي.
+http خاصو يكون داخلserver
+server خاصها تكون داخل .location
+
+
+
+
+
+
+
+# this is the true structer of them.
+# events {
+# }
+
+# http {
+#     server {
+#         location / {
+#         }
+#     }
+# }
+# you can not put location in http direct every directive has own context
+
+
+
+
+search about the default values
+
+
+
+
+
+
+
+
+OpenSSL : is a software for encription + create keys + create a certificate
+
+
+
+
+http { }
+إعدادات HTTP وHTTPS
+
+
+server { }
+إعدادات سيرفر الويب
+
+
+location / { }
+كيفاش يتعامل مع URI ديال الطلب
+

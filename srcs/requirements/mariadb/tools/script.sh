@@ -27,3 +27,4 @@ fi
 
 
 exec mariadbd --user=mysql
+

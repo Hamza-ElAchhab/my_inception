@@ -1,3 +1,5 @@
+
+
 FROM debian:bookworm
 
 RUN apt update && apt install -y \
@@ -9,6 +11,7 @@ RUN apt update && apt install -y \
 
 
 
+# latest non-support
 RUN curl https://wordpress.org/latest.tar.gz --output /zipped \
     && tar -xzf /zipped\
     && rm zipped
@@ -24,7 +27,7 @@ COPY conf/www.conf /etc/php/8.2/fpm/pool.d/www.conf
 COPY tools/script.sh /script.sh
 
 
-
+# && chown -R www-data:www-data /wordpress/wp-content/uploads
 RUN chmod +x /script.sh && chown -R www-data:www-data /wordpress
 
 

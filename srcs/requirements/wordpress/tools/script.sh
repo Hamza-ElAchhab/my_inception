@@ -52,6 +52,6 @@ fi
 
 
 
-
+# Daemonize
 exec php-fpm8.2 -F
 
