@@ -1,5 +1,5 @@
 #!/bin/sh
-set -e
+
 
 WP_PATH=/wordpress
 DB_PASS=1234
@@ -14,7 +14,7 @@ WP_ADMIN_EMAIL=hamza_manager@example.com
 WP_USER=wp_author
 WP_USER_EMAIL=wp_author@example.com
 WP_TITLE="My WordPress Site"
-DOMAIN_NAME=hamza.42.fr
+DOMAIN_NAME=localhost:9999
 
 
 # # client
@@ -28,7 +28,7 @@ if [ ! -f "$WP_PATH/wp-config.php" ]; then
 
         php /my_cli --allow-root --path="$WP_PATH" config create \
         --dbname="$MYSQL_DATABASE" --dbuser="$MYSQL_USER" \
-        --dbpass="$DB_PASS" --dbhost=database_cntr
+        --dbhost=database_cntr
 fi
 
 
@@ -41,6 +41,13 @@ if ! php /my_cli --allow-root --path="$WP_PATH" core is-installed; then
                 --admin_email="$WP_ADMIN_EMAIL"
 fi
 
+# php /my_cli --allow-root --path="$WP_PATH" option update home "https://$DOMAIN_NAME"
+
+# php /my_cli --allow-root --path="$WP_PATH" option update siteurl "https://$DOMAIN_NAME"
+
+
+# docker exec wordpress_cntr php /my_cli --allow-root --path=/wordpress option update home 'https://localhost:9999'
+# docker exec wordpress_cntr php /my_cli --allow-root --path=/wordpress option update siteurl 'https://localhost:9999'
 
 
 # create second user behaid the admin

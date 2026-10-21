@@ -10,7 +10,7 @@ set -e
 #-x509: mandatory to use for the self-sign
 # -nodes: for skip the ask enter pass
 
-if [ ! -f /the_certificate/server.crtf ] && [ ! -f /the_key/server.key ]; then
+if [ ! -f /the_certificate/server.crtf ] || [ ! -f /the_key/server.key ]; then
 
     mkdir /the_certificate
     mkdir /the_key
