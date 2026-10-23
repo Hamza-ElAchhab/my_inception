@@ -1,12 +1,6 @@
 #!/bin/sh
 
 
-# build in shell
-# learn about positional parameters.
-set -e
-# so if any one exit with not 0 will handle it
-
-
 #-x509: mandatory to use for the self-sign
 # -nodes: for skip the ask enter pass
 
@@ -24,4 +18,25 @@ fi
 
 #directive
 exec nginx -g "daemon off;"
+
+
+
+
+# http requests types
+
+# fastcgi_param QUERY_STRING    $query_string;
+# fastcgi_param REQUEST_METHOD  $request_method;
+# fastcgi_param CONTENT_TYPE    $content_type;
+# fastcgi_param CONTENT_LENGTH  $content_length;
+# fastcgi_param REQUEST_URI     $request_uri;
+# fastcgi_param SERVER_PROTOCOL $server_protocol;
+
+
+# location ~ \.php$ {
+#     fastcgi_param REQUEST_METHOD $request_method;
+#     fastcgi_param REQUEST_URI $request_uri;
+#     fastcgi_param QUERY_STRING $query_string;
+
+#     fastcgi_pass wordpress:9000;
+# }
 

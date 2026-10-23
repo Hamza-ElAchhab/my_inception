@@ -12,5 +12,4 @@ RUN chmod +x /script.sh
 
 
 ENTRYPOINT ["/script.sh"]
-#exec change in the same proccess.
 
