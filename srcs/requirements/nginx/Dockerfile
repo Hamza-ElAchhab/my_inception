@@ -13,3 +13,4 @@ RUN chmod +x /script.sh
 
 ENTRYPOINT ["/script.sh"]
 
+# rules of create dockerfile for resuble of layers

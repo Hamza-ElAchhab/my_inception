@@ -63,3 +63,12 @@ ping 100.100.100.2
 
 
 
+--> how the container be isolated ?
+--> what is the docker archeticte ?
+--> how the dockerfile create the layers ?
+--> what happend when you run every CMD ?
+--> volume + network + publish ?
+--> how linux make namespace and be isolated ?
+--> how the nginx works.
+
+
