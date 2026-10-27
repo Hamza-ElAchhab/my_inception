@@ -70,5 +70,5 @@ ping 100.100.100.2
 --> volume + network + publish ?
 --> how linux make namespace and be isolated ?
 --> how the nginx works.
-
+--> from what the request builded.
 
