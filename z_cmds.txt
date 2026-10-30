@@ -1,50 +1,7 @@
 
-docker inspect redis (:version optional)
-
 docker stats    ""
 
-d info
-
-d inspect --format='{{rage.NetworkSettings.Network}}{{IPAdress}}{{end}}' (container_id, name)
-
-docker conatner run --detach --publish 80:80 --name n1 nginx
-
-
-
 docker history nginx --> layers of build
-
-Docker image سميتها nginx، يعني الطبقات (layers) اللي تكوّنات منها هاد الـ image والأوامر المرتبطة بكل طبقة.
-
-docker inspect none
-
-
-
-run -d --name my_mariadb -e MARIADB_ROOT_PASSWORD=1234 -v my_volume:/var/lib/mysql mariadb
-
-
-
-
-docker run -it --name hamza -v $(pwd)/shrad_folder:/the_shared_folder -e MARIADB_ROOT_PASSWORD=1234  mariadb
-docker run -d --name hamza -v $(pwd)/shrad_folder:/the_shared_folder -e MARIADB_ROOT_PASSWORD=1234  mariadb
-create another container and share data between containers
-
-
-docker run -d \
-  --name dashboard \
-  -p 8080:80 \
-  -v /goinfre/hel-achh/my_inseption/practice/startbootstrap-sb-admin-2-gh-pages:/usr/share/nginx/html \
-  nginx
-http://localhost:8080/login.html
-
-
--p == --publish
-host:container     ports
-
-
-history
-
-
-docker exec cntr1 getent hosts mariadb
 
 
 Transport Layer Security

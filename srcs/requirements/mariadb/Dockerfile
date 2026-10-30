@@ -11,3 +11,8 @@ RUN chmod +x /script.sh
 
 
 ENTRYPOINT ["/script.sh"]
+
+
+
+# learn about the CMD.
+

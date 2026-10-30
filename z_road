@@ -25,6 +25,7 @@ learn:
     os kernel syscalls
     control groups (monitor of using memory and resources)
     writeable layer
+    different between : none, host, bridge.
 
 
 
@@ -33,6 +34,4 @@ isolated view = namespace (addresses memory)
 
 dija msistame 3la nafs default config
 ola kat3tih man parameter
-
-
 

@@ -35,7 +35,6 @@ sed -i 's|^listen = .*|listen = 0.0.0.0:9000|' /etc/php/8.2/fpm/pool.d/www.conf
 
 
 
-
 # Daemonize
 exec php-fpm8.2 --nodaemonize
 
