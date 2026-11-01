@@ -1,6 +1,4 @@
-#!/bin/sh
-
-# mysqli is an ext let php connect to database and execute SQLs
+#!/bin/shell
 
 
 sleep 10
@@ -13,10 +11,10 @@ fi
 
 
 
-if [ ! -f /already_core_installed ]; then
+if [ ! -f /already_core_installed ];then
     php /my_cli core install --allow-root --path="/wordpress/" --url="https://127.0.0.1/" \
     --title="my_site" --admin_user="hel-achh" --admin_email="hel-achh@gmail.com"
-touch /already_core_installed
+    touch /already_core_installed
 fi
 #nano /etc/hosts --> 127.0.0.1  hamza.42.fr.
 
@@ -37,4 +35,5 @@ sed -i 's|^listen = .*|listen = 0.0.0.0:9000|' /etc/php/8.2/fpm/pool.d/www.conf
 
 # Daemonize
 exec php-fpm8.2 --nodaemonize
+
 

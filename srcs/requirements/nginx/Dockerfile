@@ -1,5 +1,7 @@
 FROM debian:bookworm
 
+
+# the catalog already exists just update it.
 RUN apt update && apt install nginx openssl -y
 
 
@@ -10,3 +12,6 @@ RUN chmod +x /script.sh
 
 
 ENTRYPOINT ["/script.sh"]
+
+# ./script : means find in current working dir
+

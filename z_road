@@ -6,8 +6,6 @@ https://dexter-13.gitbook.io/oussama-elhadraoui/docker-doc
 
 file:///run/user/103873/doc/698b4cdd/Inception_Learners_Guide.pdf
 
-https://labs.iximiuz.com/tutorials/container-image-from-scratch
-
 
 learn:
     Dockerfile instruction.
@@ -21,7 +19,7 @@ learn:
     why we have perfect usage of memory with docker against the VM.
     microservices arctucther
     docker d ?
-    Namespaces
+    all Namespaces
     os kernel syscalls
     control groups (monitor of using memory and resources)
     writeable layer
@@ -34,4 +32,16 @@ isolated view = namespace (addresses memory)
 
 dija msistame 3la nafs default config
 ola kat3tih man parameter
+
+
+
+--> how the container be isolated ?
+--> what is the docker archeticte ?
+--> how the dockerfile create the layers ?
+--> what happend when you run every CMD ?
+--> volume + network + publish ?
+--> how linux make namespace and be isolated ?
+--> how the nginx works.
+--> from what the request builded.
+--> read about the mounting.
 

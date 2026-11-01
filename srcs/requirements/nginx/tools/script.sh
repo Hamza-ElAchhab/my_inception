@@ -1,4 +1,9 @@
-#!/bin/sh
+#!/bin/shell
+
+# this is a Shebang
+# sh script.sh -> run direct with shell
+# ./script.sh in this case linux want to know with what should run it
+
 
 
 # there are two tpyes of create, send req of info and wait for profesnoil response, or create fast one with your own self.
@@ -13,7 +18,7 @@
 
 
 
-if [ ! -f /the_certificate/server.crtf ] || [ ! -f /the_key/server.key ]; then
+if [ ! -f /the_certificate/server.crtf ] || [ ! -f /the_key/server.key ];then
 
     mkdir /the_certificate
     mkdir /the_key

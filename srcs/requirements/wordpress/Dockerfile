@@ -1,4 +1,6 @@
 
+
+
 # the first probleme that we will solve is store tables in the database
 # installed src code the wordpress, and then starting the init wordpress
 # but init needs CLI for wordpress
@@ -31,6 +33,8 @@ RUN curl https://wordpress.org/latest.tar.gz --output /zipped \
 
 
 
+
+    # dija hada kianstali src
 RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /my_cli
 
 
