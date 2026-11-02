@@ -1,0 +1,7 @@
+
+
+services:
+  database:
+    image: database_img
+  
+  
