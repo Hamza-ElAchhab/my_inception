@@ -1,7 +1,55 @@
 
-
 services:
+
   database:
+    build: requirements/mariadb
     image: database_img
-  
-  
+    volumes:
+      - database_volume:/var/lib/mysql
+    networks:
+      - the_network
+    container_name: mariadb_cntr
+
+
+
+  wordpress:
+    build: requirements/wordpress
+    image: wordpress_img
+    volumes:
+      - wordpress_nginx_vol:/wordpress
+    networks:
+      - the_network
+    container_name: wordpress_cntr
+
+
+
+  nginx:
+    build: requirements/nginx
+    image: nginx_img
+    volumes:
+      - wordpress_nginx_vol:/wordpress
+    networks:
+      - the_network
+    ports:
+      - "1234:443"
+    container_name: nginx_cntr
+    depends_on:
+      - wordpress
+
+
+volumes:
+  database_volume:
+  wordpress_nginx_vol:
+
+networks:
+  the_network:
+
+
+# build
+#docker compose build
+#docker compose build a_cntr
+# can crete with this name or run this.
+# docker compose up --detach -> run them
+# docker compose down -> stop + rm (cntr + net)
+
+

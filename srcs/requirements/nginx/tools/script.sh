@@ -1,4 +1,4 @@
-#!/bin/shell
+#!/bin/bash
 
 # this is a Shebang
 # sh script.sh -> run direct with shell

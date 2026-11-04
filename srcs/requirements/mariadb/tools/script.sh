@@ -1,11 +1,10 @@
-# this script is create a database + user with permissions on it then run the base service
-
 #!/bin/bash
 
 DB_PASS=1234
 DB_ROOT_PASS=1234
 MYSQL_DATABASE="my_database"
 MYSQL_USER="my_user"
+# this script is create a database + user with permissions on it then run the base service
 
 
 
@@ -28,7 +27,7 @@ if [ ! -f /var/lib/mysql/.initialized ]; then
 
     mariadb --execute "CREATE DATABASE my_database;"
     mariadb --execute "CREATE USER 'my_user'@'%' IDENTIFIED BY 'koko.kaka.1234';"
-    mariadb --execute "GRANT ALL PRIVILEGES ON my_database.* TO my_user@'%';"
+    mariadb --execute "GRANT ALL PRIVILEGES ON my_database.* TO 'my_user'@'%';"
 
 
 

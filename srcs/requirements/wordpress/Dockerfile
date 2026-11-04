@@ -25,16 +25,12 @@ RUN apt update && apt install curl -y \
         php8.2-mysql
 
 
-
-
 RUN curl https://wordpress.org/latest.tar.gz --output /zipped \
     && tar -x -f /zipped \
-    && rm zipped
+    && rm /zipped
 
 
 
-
-    # dija hada kianstali src
 RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /my_cli
 
 
@@ -43,10 +39,9 @@ COPY tools/script.sh /script.sh
 RUN chmod +x /script.sh
 
 
+
+# search about if the workers need write permission
 # RUN chmod 777 /wordpress
-#  && chown -R www-data:www-data /wordpress
-
-
 
 
 ENTRYPOINT ["/script.sh"]

@@ -1,6 +1,6 @@
-#this Dockerfile install mariadb-server + put the script in cntr + and start it
-
 FROM debian:bookworm
+
+#this Dockerfile install mariadb-server + put the script in cntr + and start it
 
 
 # exec while building the img.
@@ -16,7 +16,7 @@ RUN chmod +x /script.sh
 
 ENTRYPOINT ["/script.sh"]
 
-
+# /var/lib/mysql
 
 # CMD for the first default cmd, execute when you creates the cntr, if you have 3 CMDs will use last one
 # entrypoint runs the main proccess and cmd for give him arguments
