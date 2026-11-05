@@ -1,21 +1,5 @@
 
 
-
-# the first probleme that we will solve is store tables in the database
-# installed src code the wordpress, and then starting the init wordpress
-# but init needs CLI for wordpress
-# fpm is app server
-# fpm execute code php, but if the code calls a database data, will fpm call it and execute too
-# خادم الويب (Nginx) : has no idea on database or database server
-# database: cant convert data to html
-
-# when you install and run php-fpm
-# make him self in backgroud + listen on fastcgi req + and make workers for every req.
-
-
-# listen = localhost:9000
-
-
 FROM debian:bookworm
 
 

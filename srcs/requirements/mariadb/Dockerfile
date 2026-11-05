@@ -3,10 +3,11 @@ FROM debian:bookworm
 #this Dockerfile install mariadb-server + put the script in cntr + and start it
 
 
-# exec while building the img.
+
 RUN apt update && apt install mariadb-server -y \
     && mkdir /run/mysqld && \
     chmod 777 /run/mysqld
+#   for sock file
 
 
 COPY tools/script.sh /script.sh
