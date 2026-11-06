@@ -1,13 +1,11 @@
 FROM debian:bookworm
-
-#this Dockerfile install mariadb-server + put the script in cntr + and start it
-
+# add description
 
 
 RUN apt update && apt install mariadb-server -y \
     && mkdir /run/mysqld && \
     chmod 777 /run/mysqld
-#   for sock file
+
 
 
 COPY tools/script.sh /script.sh
@@ -16,6 +14,8 @@ RUN chmod +x /script.sh
 
 
 ENTRYPOINT ["/script.sh"]
+
+
 
 # /var/lib/mysql
 

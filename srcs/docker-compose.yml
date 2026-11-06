@@ -1,7 +1,7 @@
 
 services:
 
-  database:
+  mariadb:
     build: requirements/mariadb
     image: database_img
     # volumes:

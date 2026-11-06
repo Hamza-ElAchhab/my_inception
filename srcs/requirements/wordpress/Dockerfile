@@ -1,12 +1,13 @@
+# make a description
 
 
 FROM debian:bookworm
 
 
 RUN apt update && apt install curl -y \
-        php8.2-cli \
-        php8.2-fpm  \
-        php8.2-mysql
+    php8.2-cli \
+    php8.2-fpm  \
+    php8.2-mysql
 
 
 RUN curl https://wordpress.org/latest.tar.gz --output /zipped \
