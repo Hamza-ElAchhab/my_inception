@@ -6,8 +6,8 @@ services:
     image: database_img
     # volumes:
     #   - database_volume:/var/lib/mysql
-    # networks:
-    #   - the_network
+    networks:
+      - project_network
     container_name: mariadb_cntr
     environment:
       DATABASE_NAME: ${DATABASE_NAME}
@@ -16,47 +16,48 @@ services:
 
 
 
-
-
-#   wordpress:
-#     build: requirements/wordpress
-#     image: wordpress_img
-#     volumes:
-#       - wordpress_nginx_vol:/wordpress
-#     networks:
-#       - the_network
-#     container_name: wordpress_cntr
-
-
-
-#   nginx:
-#     build: requirements/nginx
-#     image: nginx_img
-#     volumes:
-#       - wordpress_nginx_vol:/wordpress
-#     networks:
-#       - the_network
-#     ports:
-#       - "1234:443"
-#     container_name: nginx_cntr
-#     depends_on:
-#       - wordpress
+  wordpress:
+    build: requirements/wordpress
+    image: wordpress_img
+    volumes:
+      - wordpress_nginx_volume:/wordpress
+    networks:
+      - project_network
+    container_name: wordpress_cntr
+    depends_on:
+      - mariadb
+    environment:
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER_NAME: ${DATABASE_USER_NAME}
+      DATABASE_USER_PASSWORD: ${DATABASE_USER_PASSWORD}
+      WORDPRESS_URL: ${WORDPRESS_URL}
+      WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
+      WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
+      WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
+      WORDPRESS_USER: ${WORDPRESS_USER}
+      WORDPRESS_USER_PASS: ${WORDPRESS_USER_PASS}
 
 
 
-# volumes:
-# #   database_volume:
-#   wordpress_nginx_vol:
+  nginx:
+    build: requirements/nginx
+    image: nginx_img
+    volumes:
+      - wordpress_nginx_volume:/wordpress
+    networks:
+      - project_network
+    ports:
+      - "1234:443"
+    container_name: nginx_cntr
+    depends_on:
+      - wordpress
 
-# networks:
-#   the_network:
 
 
-# build
-#docker compose build
-#docker compose build a_cntr
-# can crete with this name or run this.
-# docker compose up --detach -> run them
-# docker compose down -> stop + rm (cntr + net)
+volumes:
+#   database_volume:
+  wordpress_nginx_volume:
 
+networks:
+  project_network:
 

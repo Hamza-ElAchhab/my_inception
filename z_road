@@ -44,4 +44,21 @@ ola kat3tih man parameter
 --> how the nginx works.
 --> from what the request builded.
 --> read about the mounting.
+--> search about buildkit
 
+Docker CLI
+    |
+    | Build request
+    v
+Docker Engine / Buildx
+    |
+    v
+buildkitd  (BuildKit Daemon)
+    |
+    | Executes build
+    v
+Docker Image
+
+--> how docker compose works.
+--> different: host + bridge + none
+--> port mapping.

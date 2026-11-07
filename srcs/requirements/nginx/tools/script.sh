@@ -16,7 +16,7 @@
 # without -out will be no crtf
 # -subj "/CN=hel-achh.42.fr" for skip terminal asking 7 questions.
 
-
+sleep 7
 
 if [ ! -f /the_certificate/server.crtf ] || [ ! -f /the_key/server.key ];then
 

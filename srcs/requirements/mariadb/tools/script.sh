@@ -13,7 +13,7 @@
 # test -f /var/lib/mysql/.initializeddsf && echo "sdf"
 if [ ! -f /var/lib/mysql/.initialized ]; then
     mariadbd --user=mysql &
-    sleep 5
+    sleep 3
 
     mariadb --execute "CREATE DATABASE ${DATABASE_NAME};"
     mariadb --execute "CREATE USER ${DATABASE_USER_NAME}@'%' IDENTIFIED BY '${DATABASE_USER_PASSWORD}';"
