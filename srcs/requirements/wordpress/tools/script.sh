@@ -39,6 +39,11 @@ if [ ! -f /already_second_user ]; then
     touch /already_second_user
 fi
 
+# option get home
+# 443 will added manual
+# php /my_cli option update siteurl "https://127.0.0.1:1234" --path=/wordpress --allow-root
+# php /my_cli option update home "https://127.0.0.1:1234" --path=/wordpress --allow-root
+
 
 # regular exp
 # sed is a text editor -i for edit in-place , by default edit only in terminal
