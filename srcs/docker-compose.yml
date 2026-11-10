@@ -3,9 +3,9 @@ services:
 
   mariadb:
     build: requirements/mariadb
-    image: database_img
+    image: database
     # volumes:
-    #   - database_volume:/var/lib/mysql
+    #   - mariandb_vol:/var/lib/mysql
     networks:
       - project_network
     container_name: mariadb_cntr
@@ -18,9 +18,9 @@ services:
 
   wordpress:
     build: requirements/wordpress
-    image: wordpress_img
-    volumes:
-      - wordpress_nginx_volume:/wordpress
+    image: wordpress
+    # volumes:
+    #   - wordpress_vol:/wordpress
     networks:
       - project_network
     container_name: wordpress_cntr
@@ -41,9 +41,9 @@ services:
 
   nginx:
     build: requirements/nginx
-    image: nginx_img
-    volumes:
-      - wordpress_nginx_volume:/wordpress
+    image: nginx
+    # volumes:
+    #   - wordpress_vol:/wordpress
     networks:
       - project_network
     ports:
@@ -55,9 +55,49 @@ services:
 
 
 volumes:
-#   database_volume:
-  wordpress_nginx_volume:
+
+
+  mariadb_vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hel-achh/data/mariadb
+
+  wordpress_vol:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/hel-achh/data/wordpress
+
+
 
 networks:
   project_network:
+
+
+
+# أضف .env إلى .gitignore.
+
+
+
+# docker volume create \
+#   --driver local \
+#   --opt type=none \
+#   --opt o=bind \
+#   --opt device=/home/hel-achh/data/wordpress \
+#   wordpress_vol
+
+# docker volume create \
+#   --driver local \
+#   --opt type=none \
+#   --opt o=bind \
+#   --opt device=/home/hel-achh/data/wordpress \
+#   wordpress_vol
+
+
+
+# mkdir -p /home/hel-achh/data/wordpress
+# mkdir -p /home/hel-achh/data/mariadb
 

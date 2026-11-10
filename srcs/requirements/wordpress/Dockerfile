@@ -1,6 +1,5 @@
 # make a description
 
-
 FROM debian:bookworm
 
 
@@ -25,8 +24,8 @@ RUN chmod +x /script.sh
 
 
 
-# search about if the workers need write permission
-# RUN chmod 777 /wordpress
+# workers need write permission for upload file case...
+RUN chmod 777 /wordpress
 
 
 ENTRYPOINT ["/script.sh"]

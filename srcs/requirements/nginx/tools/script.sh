@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# this is a Shebang
-# sh script.sh -> run direct with shell
-# ./script.sh in this case linux want to know with what should run it
-
 
 
 # there are two tpyes of create, send req of info and wait for profesnoil response, or create fast one with your own self.
@@ -26,10 +22,10 @@ if [ ! -f /the_certificate/server.crtf ] || [ ! -f /the_key/server.key ];then
     openssl req -x509 -nodes -newkey rsa \
         -keyout /the_key/server.key \
         -out /the_certificate/server.crtf \
-        -subj "/CN=hel-achh.42.fr"
+        -subj "/CN=hel-achh.42.fr" # fill only COMMON NAME
 fi
 
 
-# -g == global_derictive is a modifycation on the config
+
 exec nginx -g "daemon off;"
 

@@ -35,7 +35,7 @@ ola kat3tih man parameter
 
 
 
---> how the container be isolated ?
+--> how the container be isolated ? 
 --> what is the docker archeticte ?
 --> how the dockerfile create the layers ?
 --> what happend when you run every CMD ?
@@ -62,3 +62,5 @@ Docker Image
 --> how docker compose works.
 --> different: host + bridge + none
 --> port mapping.
+--> setup + vm vs cntr
+

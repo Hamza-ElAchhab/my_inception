@@ -3,27 +3,17 @@
 #add description
 
 
-
-# can word press works without coreinstall : no should do it manual.
-# إذا حاولت فتح الموقع، سيطلب منك WordPress إكمال التثبيت.
 sleep 4
 
 
 
-# # mysqli_init(): this part needs mysqli extention from PHP Extension
-# mysqli هي PHP Extension كتسمح لبرامج PHP يتواصلو مع MySQL وMariaDB باستعمال بروتوكول MySQL.
+
 if [ ! -f "/wordpress/wp-config.php" ]; then
     php /my_cli config create --allow-root --path="/wordpress" --dbname=${DATABASE_NAME} --dbuser=${DATABASE_USER_NAME}\
         --dbhost="mariadb" --dbpass=${DATABASE_USER_PASSWORD}
 fi
 
 
-# this part too need the exetention for start creation of tables.
-# url : mandatory for can wordpress knows the base URL not just nginx, it is mandatory for the redirection
-# if user will change the current page with other should build the URL again and append the URL
-# for send it as response
-# لكي يستطيع إنشاء الروابط الصحيحة داخل الصفحات التي يرسلها للمتصفح
-# --title="MY WORDPRESS SITE  just for dispaly
 
 if [ ! -f /already_core_installed ];then
     php /my_cli core install --allow-root --path="/wordpress" --url=${WORDPRESS_URL} --title="MY WORDPRESS SITE" \
@@ -39,10 +29,12 @@ if [ ! -f /already_second_user ]; then
     touch /already_second_user
 fi
 
-# option get home
+
 # 443 will added manual
-# php /my_cli option update siteurl "https://127.0.0.1:1234" --path=/wordpress --allow-root
-# php /my_cli option update home "https://127.0.0.1:1234" --path=/wordpress --allow-root
+php /my_cli option update siteurl "https://127.0.0.1:1234" --path=/wordpress --allow-root
+php /my_cli option update home "https://127.0.0.1:1234" --path=/wordpress --allow-root
+
+
 
 
 # regular exp
@@ -50,15 +42,48 @@ fi
 # s: for the type proccess (substute)
 # |: seperator
 # ^listen : any line start with
-sed -i 's|^listen = .*|listen = 0.0.0.0:9000|' /etc/php/8.2/fpm/pool.d/www.conf
+
+
+sed -i "s|^listen = .*|listen = 0.0.0.0:9000|" /etc/php/8.2/fpm/pool.d/www.conf
 # listen = /run/php/php8.2-fpm.sock / default. with no port.
 
+# from here
 
-
-# you realy up him to pid1 should stay in it, dont make him split him self.
 exec php-fpm8.2 --nodaemonize
 
 
 
+
+
+
+
+
+
+
 # #nano /etc/hosts --> 127.0.0.1  hamza.42.fr.
+
+
+
+# siteurl and home they storage in database when we do coreinstall,
+# value of them like ->https://hel-achh.42.fr:1234
+
+# Filesystem:
+#     /wordpress/
+
+# Database (wp_options):
+#     siteurl = https://hel-achh.42.fr:1234 -> mandatory for can wordpress (fpm workers) build the next URL for browser
+#     home    = https://hel-achh.42.fr:1234
+
+# siteurl
+# WordPress installation
+# example.com/wordpress
+# فين كاين WordPress نفسه؟
+
+# home
+# Website visitors
+# example.com
+# شنو هو العنوان اللي كيدخل ليه الزائر؟
+
+# so siteurl for find where is the src code in filesys
+# and home for build the request
 
