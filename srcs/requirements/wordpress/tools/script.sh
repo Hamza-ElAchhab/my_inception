@@ -17,7 +17,7 @@ fi
 
 if [ ! -f /already_core_installed ];then
     php /my_cli core install --allow-root --path="/wordpress" --url=${WORDPRESS_URL} --title="MY WORDPRESS SITE" \
-        --admin_user=${WORDPRESS_ADMIN_NAME} --admin_email=${WORDPRESS_ADMIN_EMAIL} --admin_password=${WORDPRESS_ADMIN_PASSWORD}
+        --admin_user=${WORDPRESS_ADMIN_NAME} --admin_email= ${WORDPRESS_ADMIN_EMAIL} --admin_password=${WORDPRESS_ADMIN_PASSWORD}
     touch /already_core_installed
 fi
 

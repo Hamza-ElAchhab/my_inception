@@ -1,66 +1,19 @@
 
-docker architecter
-
-
 https://dexter-13.gitbook.io/oussama-elhadraoui/docker-doc
 
 file:///run/user/103873/doc/698b4cdd/Inception_Learners_Guide.pdf
 
 
-learn:
-    Dockerfile instruction.
-    Base Layer. (from what image build on ?)
-    NetWorks
-    Volumes (make the outside folder for te current container.)
-    how container connect with Docker Volume
-    what happend when container stops
-    what is hypervisor and how it works
-    what is enginx, wordpress, db
-    why we have perfect usage of memory with docker against the VM.
-    microservices arctucther
-    docker d ?
-    all Namespaces
-    os kernel syscalls
-    control groups (monitor of using memory and resources)
-    writeable layer
-    different between : none, host, bridge.
 
 
-
-isolated view = namespace (addresses memory)
-
-
-dija msistame 3la nafs default config
-ola kat3tih man parameter
-
-
-
---> how the container be isolated ? 
---> what is the docker archeticte ?
---> how the dockerfile create the layers ?
---> what happend when you run every CMD ?
---> volume + network + publish ?
---> how linux make namespace and be isolated ?
---> how the nginx works.
---> from what the request builded.
---> read about the mounting.
---> search about buildkit
-
-Docker CLI
-    |
-    | Build request
-    v
-Docker Engine / Buildx
-    |
-    v
-buildkitd  (BuildKit Daemon)
-    |
-    | Executes build
-    v
-Docker Image
-
---> how docker compose works.
---> different: host + bridge + none
---> port mapping.
 --> setup + vm vs cntr
+--> "GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO ${DATABASE_USER_NAME}@'%';"
+--> ps -p 1
+--> ps aux
+ip addr ip route ss -tulnp 
+what is inode f.
+
+what is system administration ?
+
+how env variables can sended to cntr ?
 
