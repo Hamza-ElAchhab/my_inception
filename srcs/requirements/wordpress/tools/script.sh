@@ -16,56 +16,39 @@ fi
 
 
 if [ ! -f /already_core_installed ];then
-    php /my_cli core install --allow-root --path="/wordpress" --url=${WORDPRESS_URL} --title="MY WORDPRESS SITE" \
-        --admin_user=${WORDPRESS_ADMIN_NAME} --admin_email= ${WORDPRESS_ADMIN_EMAIL} --admin_password=${WORDPRESS_ADMIN_PASSWORD}
+    php /my_cli core install --allow-root --path="/wordpress" --url=${DOMAIN_NAME} --title="MY WORDPRESS SITE" \
+        --admin_user=${WORDPRESS_ADMIN_NAME} --admin_email=${WORDPRESS_ADMIN_EMAIL} --admin_password=${WORDPRESS_ADMIN_PASSWORD}
     touch /already_core_installed
 fi
 
 
 
 if [ ! -f /already_second_user ]; then
-    php /my_cli user create --allow-root --path="/wordpress" ${WORDPRESS_USER}\
+    php /my_cli user create --allow-root --path="/wordpress"   ${WORDPRESS_USER}\
         hamzaelachhab99@gmail.com --user_pass=${WORDPRESS_USER_PASS}
     touch /already_second_user
 fi
 
 
 # 443 will added manual
-php /my_cli option update siteurl "https://127.0.0.1:1234" --path=/wordpress --allow-root
-php /my_cli option update home "https://127.0.0.1:1234" --path=/wordpress --allow-root
+php /my_cli option update siteurl "https://hel-achh.42.fr" --path=/wordpress --allow-root
+php /my_cli option update home "https://hel-achh.42.fr" --path=/wordpress --allow-root
 
 
 
-
-# regular exp
-# sed is a text editor -i for edit in-place , by default edit only in terminal
-# s: for the type proccess (substute)
-# |: seperator
-# ^listen : any line start with
 
 
 sed -i "s|^listen = .*|listen = 0.0.0.0:9000|" /etc/php/8.2/fpm/pool.d/www.conf
 # listen = /run/php/php8.2-fpm.sock / default. with no port.
 
-# from here
 
 exec php-fpm8.2 --nodaemonize
 
 
 
 
-
-
-
-
-
-
-# #nano /etc/hosts --> 127.0.0.1  hamza.42.fr.
-
-
-
 # siteurl and home they storage in database when we do coreinstall,
-# value of them like ->https://hel-achh.42.fr:1234
+
 
 # Filesystem:
 #     /wordpress/

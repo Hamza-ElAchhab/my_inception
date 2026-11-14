@@ -33,7 +33,7 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USER_NAME: ${DATABASE_USER_NAME}
       DATABASE_USER_PASSWORD: ${DATABASE_USER_PASSWORD}
-      WORDPRESS_URL: ${WORDPRESS_URL}
+      DOMAIN_NAME: ${DOMAIN_NAME}
       WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
       WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
@@ -50,10 +50,8 @@ services:
     networks:
       - project_network
     ports:
-      - "1234:443"
+      - "443:443"
     container_name: nginx_cntr
-    depends_on:
-      - wordpress
 
 
 
@@ -77,25 +75,6 @@ networks:
   project_network:
 
 
-
-
-
-# docker volume create \
-#   --opt type=none \
-#   --opt o=bind \
-#   --opt device=/home/hel-achh/data/wordpress \
-#   wordpress_vol
-
-
-# docker volume create \
-#   --opt type=none \
-#   --opt o=bind \
-#   --opt device=/home/hel-achh/data/mariadb \
-#   mariadb_vol
-
-
-
-
 # restart cntr.
-# copy-up
 
+# https://hel-achh.42.fr/wp-admin/    default. admin

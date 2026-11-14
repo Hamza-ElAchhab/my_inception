@@ -4,11 +4,6 @@
 
 
 
-# بعض الـ Shells تقوم بتحسين (optimization)
-# we run with exec form for dont depand on the optimise of shell
-# cause it can fork() and dont replace shell with shell even it is one proccess, no need fork()
-
-
 if [ ! -f /var/lib/mysql/.initialized ]; then
     mariadbd --user=mysql &
     sleep 3
@@ -21,10 +16,8 @@ if [ ! -f /var/lib/mysql/.initialized ]; then
     touch /var/lib/mysql/.initialized
 fi
 
-# we specify mysql use, cause it by default runs with root
+
 exec mariadbd --user=mysql --bind-address=0.0.0.0
-
-
 
 
 
