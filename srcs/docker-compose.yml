@@ -67,7 +67,7 @@ volumes:
   wordpress_vol:
     driver_opts:
       type: none
-    #   o: bind
+      o: bind
       device: /home/hel-achh/data/wordpress
 
 
