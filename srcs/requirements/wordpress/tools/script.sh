@@ -36,7 +36,7 @@ php /my_cli --allow-root --path=/wordpress option update home "https://hel-achh.
 
 
 
-sed -i "s|^listen = .*|listen = 0.0.0.0:9000|" /etc/php/8.2/fpm/pool.d/www.conf
+sed -i "s|^listen = .* |listen = 0.0.0.0:9000|" /etc/php/8.2/fpm/pool.d/www.conf
 # listen = /run/php/php8.2-fpm.sock / default. with no port.
 
 
