@@ -24,7 +24,6 @@ RUN chmod +x /script.sh
 
 
 
-# workers need write permission for upload file case...
 RUN chmod 777 /wordpress
 
 

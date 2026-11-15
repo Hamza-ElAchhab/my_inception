@@ -7,7 +7,6 @@ sleep 4
 
 
 
-
 if [ ! -f "/wordpress/wp-config.php" ]; then
     php /my_cli config create --allow-root --path="/wordpress" --dbname=${DATABASE_NAME} --dbuser=${DATABASE_USER_NAME}\
         --dbhost="mariadb" --dbpass=${DATABASE_USER_PASSWORD}
@@ -30,10 +29,9 @@ if [ ! -f /already_second_user ]; then
 fi
 
 
-# 443 will added manual
-php /my_cli option update siteurl "https://hel-achh.42.fr" --path=/wordpress --allow-root
-php /my_cli option update home "https://hel-achh.42.fr" --path=/wordpress --allow-root
 
+php /my_cli --allow-root --path=/wordpress option update siteurl "https://hel-achh.42.fr"
+php /my_cli --allow-root --path=/wordpress option update home "https://hel-achh.42.fr"
 
 
 
@@ -43,30 +41,3 @@ sed -i "s|^listen = .*|listen = 0.0.0.0:9000|" /etc/php/8.2/fpm/pool.d/www.conf
 
 
 exec php-fpm8.2 --nodaemonize
-
-
-
-
-# siteurl and home they storage in database when we do coreinstall,
-
-
-# Filesystem:
-#     /wordpress/
-
-# Database (wp_options):
-#     siteurl = https://hel-achh.42.fr:1234 -> mandatory for can wordpress (fpm workers) build the next URL for browser
-#     home    = https://hel-achh.42.fr:1234
-
-# siteurl
-# WordPress installation
-# example.com/wordpress
-# فين كاين WordPress نفسه؟
-
-# home
-# Website visitors
-# example.com
-# شنو هو العنوان اللي كيدخل ليه الزائر؟
-
-# so siteurl for find where is the src code in filesys
-# and home for build the request
-
