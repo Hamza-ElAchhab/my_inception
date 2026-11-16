@@ -23,7 +23,7 @@ COPY tools/script.sh /script.sh
 RUN chmod +x /script.sh
 
 
-
+# remove this permission and upload photo.
 RUN chmod 777 /wordpress
 
 

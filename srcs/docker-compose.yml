@@ -48,6 +48,7 @@ services:
     build: requirements/nginx
     image: nginx
     volumes:
+    # talab rabt al masar
       - wordpress_vol:/wordpress
     networks:
       - project_network
@@ -78,7 +79,11 @@ networks:
   project_network:
 
 
-# restart cntr.
+# type=none: ما كيقولش إن الـ filesystem الحقيقي نوعه none.
+# o=bind: كيطلب ربط المسار الموجود بمسار آخر.
+
+
+# why restart cntr.
 
 # https://hel-achh.42.fr/wp-admin/    default. admin
 

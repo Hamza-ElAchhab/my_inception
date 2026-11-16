@@ -24,7 +24,7 @@ fi
 
 if [ ! -f /already_second_user ]; then
     php /my_cli user create --allow-root --path="/wordpress"   ${WORDPRESS_USER}\
-        hamzaelachhab99@gmail.com --user_pass=${WORDPRESS_USER_PASS}
+        hamzaelachhab99@gmail.com --user_pass=${WORDPRESS_USER_PASS} --role=author
     touch /already_second_user
 fi
 
@@ -34,10 +34,12 @@ php /my_cli --allow-root --path=/wordpress option update siteurl "https://hel-ac
 php /my_cli --allow-root --path=/wordpress option update home "https://hel-achh.42.fr"
 
 
+# urlsite mandatory for wordpress to know when src
+# home : for build redirect
+# different between workder and code that will execute
+# worker not who build new URL is the wordpress src code
 
-
-sed -i "s|^listen = .*|listen = 0.0.0.0:9000|" /etc/php/8.2/fpm/pool.d/www.conf
-# listen = /run/php/php8.2-fpm.sock / default. with no port.
+sed -i "s|^listen =.*|listen = 0.0.0.0:9000|" /etc/php/8.2/fpm/pool.d/www.conf
 
 
 exec php-fpm8.2 --nodaemonize
