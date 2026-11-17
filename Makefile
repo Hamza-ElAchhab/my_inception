@@ -1,5 +1,5 @@
 
-PATH = -f srcs/docker-compose.yml
+# PATH = -f srcs/docker-compose.yml
 
 
 build:
@@ -29,5 +29,5 @@ remove_imgs:
 # build       Build the images without starting (optional).
 # down       Stop and remove the containers (keep volumes).
 
-Walk me through one page load from browser to database and back?
+# Walk me through one page load from browser to database and back?
 

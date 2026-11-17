@@ -40,7 +40,7 @@ services:
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
       WORDPRESS_USER: ${WORDPRESS_USER}
       WORDPRESS_USER_PASS: ${WORDPRESS_USER_PASS}
-    restart: always
+    restart: always # find all cases for this.
 
 
 
@@ -95,3 +95,4 @@ networks:
 # mount --bind /source /destination
 # the same, we are in the same fs type in --bind
 # o: bind, docker dont do a namevolume
+

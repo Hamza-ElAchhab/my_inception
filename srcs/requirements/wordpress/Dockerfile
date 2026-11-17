@@ -14,7 +14,6 @@ RUN curl https://wordpress.org/latest.tar.gz --output /zipped \
     && rm /zipped
 
 
-
 RUN curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output /my_cli
 
 
@@ -23,7 +22,7 @@ COPY tools/script.sh /script.sh
 RUN chmod +x /script.sh
 
 
-# remove this permission and upload photo.
+
 RUN chmod -R 777 /wordpress
 
 
