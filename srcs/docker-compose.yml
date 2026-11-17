@@ -63,7 +63,7 @@ volumes:
 
   mariadb_vol:
     driver_opts:
-      type: none
+      type: none # no need fs type in bind m
       o: bind
       device: /home/hel-achh/data/mariadb
 
@@ -90,3 +90,8 @@ networks:
 # restart: always restart in exit0 or exit1
 # if proccess exited for some probleme in memory restart it
 
+
+# mount --type=none --bind /source /destination
+# mount --bind /source /destination
+# the same, we are in the same fs type in --bind
+# o: bind, docker dont do a namevolume
