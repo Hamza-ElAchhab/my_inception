@@ -23,3 +23,11 @@ remove_cntrs:
 remove_imgs:
 	docker compose down --rmi all
 
+
+
+# all / up Create the host data directories if needed, then build and start the stack.
+# build       Build the images without starting (optional).
+# down       Stop and remove the containers (keep volumes).
+
+Walk me through one page load from browser to database and back?
+

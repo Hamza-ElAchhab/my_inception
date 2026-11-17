@@ -24,7 +24,7 @@ RUN chmod +x /script.sh
 
 
 # remove this permission and upload photo.
-RUN chmod 777 /wordpress
+RUN chmod -R 777 /wordpress
 
 
 ENTRYPOINT ["/script.sh"]
