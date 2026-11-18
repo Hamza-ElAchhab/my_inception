@@ -10,4 +10,3 @@ fi
 
 
 exec nginx -g "daemon off;"
-

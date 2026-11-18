@@ -1,9 +1,8 @@
 #!/bin/bash
 
-# add description
+# check if already init or not, then run the server and create a database and a user and give him perm to database
 
-
-if [ ! -f /var/lib/mysql/.initialized ]; then
+if [ ! -f /var/lib/mysql/initialized ]; then
     mariadbd --user=mysql &
     sleep 3
 
@@ -12,7 +11,7 @@ if [ ! -f /var/lib/mysql/.initialized ]; then
     mariadb --execute "GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO ${DATABASE_USER_NAME}@'%';"
 
     mariadb-admin shutdown
-    touch /var/lib/mysql/.initialized
+    touch /var/lib/mysql/initialized
 fi
 
 exec mariadbd --user=mysql --bind-address=0.0.0.0

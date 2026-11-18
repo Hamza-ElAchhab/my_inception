@@ -81,15 +81,7 @@ networks:
   project_network:
 
 
-# type=none: ما كيقولش إن الـ filesystem الحقيقي نوعه none.
-# o=bind: كيطلب ربط المسار الموجود بمسار آخر.
 
-
-
-# https://hel-achh.42.fr/wp-admin/    default. admin
-
-# restart: always restart in exit0 or exit1
-# if proccess exited for some probleme in memory restart it
 
 
 # mount --type=none --bind /source /destination
