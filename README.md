@@ -1,88 +1,109 @@
-*This project has been created as part of the 42 curriculum by <login>.*
+*This project has been created as part of the 42 curriculum by hel-achh.*
 
 # Inception
 
 ## Description
 
-Inception is a system-administration project: a small web infrastructure built with
-**Docker Compose** inside a virtual machine. Every service runs in its own container,
-built from **our own Dockerfiles** on top of `alpine:3.23` (the penultimate stable Alpine
-release at the time of writing; no pulled ready-made images, no `latest` tag).
+Inception is a system administration project that builds a small web infrastructure using **Docker Compose** inside a virtual machine. Each service runs in its own container, built from a custom Dockerfile based on **Debian Bookworm**.
 
-| Service | Role | Exposed |
+| Service | Role | Port |
 |---|---|---|
-| `nginx` | Reverse proxy, TLSv1.2/1.3 only, **only entry point** | `443` |
-| `wordpress` | WordPress + php-fpm (no nginx) | internal `9000` |
-| `mariadb` | Database (no nginx) | internal `3306` |
-| `redis` *(bonus)* | WordPress object cache | internal |
-| `ftp` *(bonus)* | vsftpd on the WordPress files volume | `21`, `21000-21010` |
-| `static` *(bonus)* | Static showcase site (HTML/CSS/JS) | via nginx `/portfolio/` |
-| `adminer` *(bonus)* | Database web UI (php-fpm) | via nginx `/adminer/` |
+| `nginx` | Web server, reverse proxy and TLS | `443` |
+| `wordpress` | WordPress with PHP-FPM | Internal `9000` |
+| `mariadb` | Database server | Internal `3306` |
 
-Persistent data: two **named volumes** (`mariadb_data`, `wordpress_data`) whose data lives
-in `/home/<login>/data/{mariadb,wordpress}` on the host.
+NGINX is the only public entry point. WordPress and MariaDB communicate through a dedicated Docker bridge network.
+
+Persistent data is stored on the host:
+- MariaDB: `/home/hel-achh/data/mariadb`
+- WordPress: `/home/hel-achh/data/wordpress`
 
 ## Instructions
 
+### Installation
+
 ```bash
-git clone <your-repo-url> inception && cd inception
-make hosts          # maps <login>.42.fr to 127.0.0.1 (sudo)
-make                # creates .env + secrets, builds images, starts everything
+git clone <your-repository-url> inception
+cd inception
 ```
 
-Then open `https://<login>.42.fr` (accept the self-signed certificate).
-See `USER_DOC.md` (usage) and `DEV_DOC.md` (development).
+Configure the environment variables in `srcs/.env`.
 
-Main targets: `make` · `make down` · `make stop` · `make start` · `make logs` ·
-`make ps` · `make clean` · `make fclean` · `make re`.
+Add the following entry to `/etc/hosts`:
 
-## Project description
+```text
+127.0.0.1 hel-achh.42.fr
+```
 
-### Design choices
-- One Dockerfile per service; each ends with an `ENTRYPOINT` whose last command is an
-  `exec` of the real daemon (`mysqld`, `php-fpm84 -F`, `nginx -g 'daemon off;'`, `redis-server`,
-  `vsftpd`), so the daemon is PID 1 and receives signals. No `tail -f`, `sleep infinity`,
-  `while true` or `bash` as the main process.
-- Waiting for MariaDB uses a **bounded** retry loop (max 60 tries) and a compose
-  `healthcheck`, not an infinite loop.
-- `restart: always` restarts containers after a crash.
-- Passwords are **Docker secrets** (`secrets/*.txt`, generated randomly, git-ignored).
-  `.env` only holds non-confidential values (domain, user names).
-- TLS certificate is generated at container start (self-signed), nothing sensitive in git.
-- Admin user is `<login>_boss`, never containing "admin".
+Create the data directories and start the infrastructure:
+
+```bash
+mkdir -p /home/hel-achh/data/{mariadb,wordpress}
+make
+```
+
+Open [https://hel-achh.42.fr](https://hel-achh.42.fr) and accept the browser warning for the self-signed certificate.
+
+For more information, see `USER_DOC.md` for usage and `DEV_DOC.md` for development.
+
+**Available Makefile targets:** `all`, `build`, `up`, `down`, `down_v`, `remove_imgs`, `clean`.
+
+## Project Description
+
+### Design Choices
+
+- Each service has its own custom Dockerfile.
+- Containers run their respective service processes in the foreground.
+- NGINX handles HTTPS using TLSv1.2 and forwards PHP requests to WordPress through FastCGI.
+- WordPress uses PHP-FPM and connects to MariaDB through the Docker network.
+- `restart: on-failure` allows containers to restart after failures.
+- Environment variables configure database and WordPress credentials.
+- Persistent storage uses named volumes backed by host directories.
 
 ### Virtual Machines vs Docker
-A VM virtualizes hardware and runs a full guest OS (heavy, slow to boot, strong isolation).
-A container shares the host kernel and isolates only processes, filesystem and network
-(light, starts in seconds, reproducible from a Dockerfile). Here the VM is the host and
-Docker splits the application into small single-purpose containers.
+
+A virtual machine virtualizes hardware and runs a complete guest operating system. It provides strong isolation but requires more resources.
+
+Docker containers share the host kernel and isolate applications using operating-system features. They are generally lighter and faster to start.
+
+In this project, the virtual machine provides the environment, while Docker separates the application into independent services.
 
 ### Secrets vs Environment Variables
-Environment variables are visible in `docker inspect`, process environments and logs,
-and are easily leaked. Docker secrets are mounted as files in `/run/secrets/` (in memory,
-only for services that declare them) and are never baked into images. We use env vars
-for plain configuration and secrets for every password.
+
+Environment variables provide a simple way to pass configuration to containers, but sensitive values may be exposed through container inspection or process environments.
+
+Docker secrets provide a more controlled way to distribute sensitive information, typically by mounting them as files.
+
+This project uses environment variables for configuration and credentials.
 
 ### Docker Network vs Host Network
-A user-defined bridge network (`inception`) gives each container its own network
-namespace, DNS by service name (`mariadb`, `wordpress`...) and isolation: only nginx
-publishes a port. `network: host` removes that isolation, shares the host's interfaces
-and ports, and is forbidden by the subject.
+
+A user-defined Docker bridge network provides container isolation and DNS resolution through service names, such as `mariadb` and `wordpress`.
+
+Host networking shares the host's network namespace, reducing network isolation and exposing services directly through the host network.
+
+This project uses a dedicated bridge network, with only NGINX publishing a port.
 
 ### Docker Volumes vs Bind Mounts
-Named volumes are managed by Docker (portable, listed with `docker volume ls`,
-independent of host paths). Bind mounts map an arbitrary host path directly. The subject
-requires **named volumes**; we configure them with the `local` driver and
-`driver_opts` so their data lands in `/home/<login>/data` while remaining named volumes.
+
+Docker volumes are managed by Docker and can be inspected using `docker volume ls`.
+
+Bind mounts connect a specific host path directly to a container.
+
+This project uses named volumes with the local driver and bind-backed storage, keeping persistent data under `/home/hel-achh/data`.
 
 ## Resources
 
-- Docker docs: https://docs.docker.com/ · Compose file reference: https://docs.docker.com/compose/compose-file/
-- Dockerfile best practices: https://docs.docker.com/build/building/best-practices/
-- NGINX: https://nginx.org/en/docs/ · WordPress / WP-CLI: https://wp-cli.org/
-- MariaDB KB: https://mariadb.com/kb/ · Alpine packages: https://pkgs.alpinelinux.org/
-- Article "PID 1 signal handling in Docker" (search term: *docker PID 1 zombie reaping*)
+### Documentation and References
 
-**Use of AI:** AI (Claude) was used to generate the initial scaffold of the Dockerfiles,
-entrypoint scripts and documentation. Every file was then reviewed, tested and must be
-understood by the authors before defense. *(Edit this paragraph to describe your real usage.)*
+- Docker: https://docs.docker.com/
+- Docker Compose: https://docs.docker.com/compose/
+- Dockerfile best practices: https://docs.docker.com/build/building/best-practices/
+- NGINX: https://nginx.org/en/docs/
+- WordPress: https://wordpress.org/documentation/
+- WP-CLI: https://wp-cli.org/
+- MariaDB: https://mariadb.com/kb/
+
+### AI Usage
+
+AI was used as a learning and assistance tool to understand Docker concepts, review configuration files, troubleshoot errors, and help prepare documentation. The project implementation was reviewed and tested by the author, who is responsible for understanding the code and configuration.

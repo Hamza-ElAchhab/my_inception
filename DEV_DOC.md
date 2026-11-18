@@ -1,73 +1,112 @@
-# Developer documentation
+# Developer Documentation
 
 ## Prerequisites
-- A Linux VM with `docker` and the `docker compose` plugin, `make`.
-- Your user in the `docker` group (or run make with sudo).
 
-## Layout
+- Linux virtual machine.
+- Docker Engine and Docker Compose plugin.
+- GNU Make.
+- Permission to access the Docker daemon.
+
+## Project Layout
+
+```text
+my_inception/
+├── Makefile
+├── README.md
+├── DEV_DOC.md
+├── USER_DOC.md
+└── srcs/
+    ├── .env
+    ├── docker-compose.yml
+    └── requirements/
+        ├── mariadb/
+        │   ├── Dockerfile
+        │   └── tools/script.sh
+        ├── wordpress/
+        │   ├── Dockerfile
+        │   └── tools/script.sh
+        └── nginx/
+            ├── Dockerfile
+            ├── conf/my_config.conf
+            └── tools/script.sh
 ```
-Makefile                      # entry point
-srcs/
-   .env                        # data, variables
-   docker-compose.yml
-   requirements/
-      mariadb/  nginx/  wordpress/
-   .gitignore
 
-```
-Each service folder has `Dockerfile`, (config files).
+Each service has its own Dockerfile and startup script. NGINX also has a configuration file.
 
-## Set up from scratch
+## Setup from Scratch
+
 ```bash
-git clone <repo> inception && cd inception
-do this 127.0.0.1  hel-achh.42.fr  in /etc/hosts
-make all
+git clone <repository-url> inception
+cd inception
 ```
 
-## Build and launch
+Add the following entry to `/etc/hosts`:
+
+```text
+127.0.0.1 hel-achh.42.fr
+```
+
+Configure `srcs/.env`, then run:
+
 ```bash
-make            # = make up : docker compose up -d --build
-make build      # build only
-make logs       # follow logs
-make down       # stop and remove containers
-make re         # full rebuild from zero (destroys data)
+make
 ```
-Equivalent compose command:
-`docker compose -p inception -f srcs/docker-compose.yml --env-file srcs/.env up -d --build`
 
-## Useful commands
+## Build and Launch
+
 ```bash
-docker exec -it mariadb mariadb -uroot -p       # DB shell
-docker exec -it wordpress sh                    # shell in a container
-docker exec wordpress php84 /usr/local/bin/wp.phar --allow-root --path=/var/www/html user list
-docker exec redis redis-cli ping                # PONG
-docker exec redis redis-cli monitor             # watch cache traffic
-docker volume ls && docker volume inspect wordpress_data
-docker network inspect inception
+make              # Build and start
+make build        # Build images
+make up           # Start containers
+make down         # Stop and remove containers
+make down_v       # Remove containers and volumes
+make remove_imgs  # Remove project images
+make clean        # Clean containers, volumes and images
 ```
 
-## Where data lives
+Equivalent Compose command:
+
+```bash
+docker compose -f srcs/docker-compose.yml up -d
+```
+
+## Useful Commands
+
+```bash
+docker ps
+docker logs mariadb_cntr
+docker logs wordpress_cntr
+docker logs nginx_cntr
+docker exec -it mariadb_cntr mariadb -uroot -p
+docker exec -it wordpress_cntr bash
+docker exec nginx_cntr nginx -t
+docker volume ls
+docker network ls
+```
+
+## Persistent Storage
+
 | Data | Volume | Host path |
 |---|---|---|
-| Database | `mariadb_data` | `/home/<login>/data/mariadb` |
-| WordPress files | `wordpress_data` | `/home/<login>/data/wordpress` |
+| Database | `mariadb_vol` | `/home/hel-achh/data/mariadb` |
+| WordPress files | `wordpress_vol` | `/home/hel-achh/data/wordpress` |
 
-Volumes are Docker **named volumes** using the `local` driver with
-`driver_opts: type=none, o=bind, device=/home/<login>/data/...`. Data survives
-`make down`, container crashes and rebuilds. Only `make fclean` deletes it.
+These are named volumes using the local driver with bind-backed host directories. Data persists after containers are removed. Removing the Docker volumes does not automatically delete the files in these host directories.
 
-## How start-up works
-1. `mariadb`: `init.sh` initialises the data dir once, creates the DB and user from secrets
-   (`mysqld --bootstrap`), then `exec mysqld`.
-2. `wordpress` waits for MariaDB (bounded retry), downloads nothing at runtime, copies
-   sources into the volume, creates `wp-config.php`, installs the site, creates the
-   administrator and an author, configures Redis, then `exec php-fpm84 -F`.
-3. `nginx` generates a self-signed cert, renders its config with `$DOMAIN_NAME`, then
-   `exec nginx -g 'daemon off;'`.
+## How Startup Works
 
-## Rules checklist (defense)
-- No `latest` tag (images are `name:1.0`), base `alpine:3.23` — verify it is the
-  penultimate stable Alpine on https://alpinelinux.org/releases/ and bump if needed.
-- No passwords in Dockerfiles or git; secrets via `/run/secrets`.
-- Only port 443 published for the mandatory part; no `network: host`, `links`.
-- Admin user name has no "admin"; two users exist (`wp user list`).
+1. **MariaDB:** The startup script initializes the database, creates the application database and user, grants privileges, and starts the MariaDB daemon.
+2. **WordPress:** The startup script configures the database connection, installs WordPress, creates the configured users, updates the site URL, and starts PHP-FPM on port 9000.
+3. **NGINX:** The startup script generates a self-signed TLS certificate when needed and starts NGINX in the foreground.
+
+## Implementation Checklist
+
+- Custom Dockerfiles based on Debian Bookworm.
+- Separate containers for NGINX, WordPress and MariaDB.
+- No ready-made service images.
+- NGINX is the only published entry point, on port 443.
+- Dedicated Docker bridge network.
+- Named volumes for persistent data.
+- `restart: on-failure` restart policy.
+- No host networking or Docker links.
+- WordPress has an administrator and a second user.
