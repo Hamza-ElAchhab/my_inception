@@ -1,11 +1,11 @@
+# This Docker Compose file defines and orchestrates the three services required
+# The keys that i used :
+# build - container_name , image , volumes(- s:d) , (networks: -) , environment(k: ${}) , depends_on: -, ports -, restart, driver_opts, type, o, device
 
-# the keys that i used :
-# build - container_name , image , volumes(- s:d) , (networks: -) , environment(k: ${}) , depends_on: - ,
-# ports -, restart,
-# driver_opts, type, o, device
 
 
 services:
+
 
   mariadb:
     build: requirements/mariadb
@@ -19,7 +19,7 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USER_NAME: ${DATABASE_USER_NAME}
       DATABASE_USER_PASSWORD: ${DATABASE_USER_PASSWORD}
-    restart: always
+    restart: on-failure
 
 
 
@@ -37,13 +37,13 @@ services:
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USER_NAME: ${DATABASE_USER_NAME}
       DATABASE_USER_PASSWORD: ${DATABASE_USER_PASSWORD}
-      DOMAIN_NAME: ${DOMAIN_NAME}
+      DOMAIN_NAME: ${URL}
       WORDPRESS_ADMIN_NAME: ${WORDPRESS_ADMIN_NAME}
       WORDPRESS_ADMIN_EMAIL: ${WORDPRESS_ADMIN_EMAIL}
       WORDPRESS_ADMIN_PASSWORD: ${WORDPRESS_ADMIN_PASSWORD}
       WORDPRESS_USER: ${WORDPRESS_USER}
       WORDPRESS_USER_PASS: ${WORDPRESS_USER_PASS}
-    restart: always # find all cases for this.
+    restart: on-failure
 
 
 
@@ -51,14 +51,13 @@ services:
     build: requirements/nginx
     image: nginx
     volumes:
-    # talab rabt al masar
       - wordpress_vol:/wordpress
     networks:
       - project_network
     ports:
       - 443:443
     container_name: nginx_cntr
-    restart: always
+    restart: on-failure
 
 
 
@@ -86,7 +85,6 @@ networks:
 # o=bind: كيطلب ربط المسار الموجود بمسار آخر.
 
 
-# why restart cntr.
 
 # https://hel-achh.42.fr/wp-admin/    default. admin
 

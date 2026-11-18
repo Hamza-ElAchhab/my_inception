@@ -15,7 +15,7 @@ fi
 
 
 if [ ! -f /already_core_installed ];then
-    php /my_cli core install --allow-root --path="/wordpress" --url=${DOMAIN_NAME} --title="MY WORDPRESS SITE" \
+    php /my_cli core install --allow-root --path="/wordpress" --url=${URL} --title="MY WORDPRESS SITE" \
         --admin_user=${WORDPRESS_ADMIN_NAME} --admin_email=${WORDPRESS_ADMIN_EMAIL} --admin_password=${WORDPRESS_ADMIN_PASSWORD}
     touch /already_core_installed
 fi
@@ -30,8 +30,8 @@ fi
 
 
 
-php /my_cli --allow-root --path=/wordpress option update siteurl "https://hel-achh.42.fr"
-php /my_cli --allow-root --path=/wordpress option update home "https://hel-achh.42.fr"
+php /my_cli --allow-root --path=/wordpress option update siteurl ${URL}
+php /my_cli --allow-root --path=/wordpress option update home ${URL}
 
 
 # urlsite mandatory for wordpress to know when src
