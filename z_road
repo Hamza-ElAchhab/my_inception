@@ -6,11 +6,8 @@ file:///run/user/103873/doc/698b4cdd/Inception_Learners_Guide.pdf
 
 
 
---> setup + vm vs cntr
---> "GRANT ALL PRIVILEGES ON ${DATABASE_NAME}.* TO ${DATABASE_USER_NAME}@'%';"
---> ps -p 1
---> ps aux
-ip addr ip route ss -tulnp 
+
+
 what is inode f.
 
 what is system administration ?

@@ -1,27 +1,25 @@
 
-# PATH = -f srcs/docker-compose.yml
-
 
 build:
-	docker compose $(PATH) build
+	docker compose -f srcs/docker-compose.yml build
 
 
 up:
 	mkdir -p /home/hel-achh/data/wordpress
 	mkdir -p /home/hel-achh/data/mariadb
-	docker compose up -d
+	docker compose -f srcs/docker-compose.yml up -d
 
 
 down:
-	docker compose down -v
+	docker compose -f srcs/docker-compose.yml down -v
 
 
 remove_cntrs:
-	docker container mariadb_cntr wordpress_cntr nginx_cntr
+	docker container rm mariadb_cntr wordpress_cntr nginx_cntr
 
 
 remove_imgs:
-	docker compose down --rmi all
+	docker compose -f srcs/docker-compose.yml down --rmi all
 
 
 

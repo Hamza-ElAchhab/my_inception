@@ -1,6 +1,9 @@
 
 # the keys that i used :
-# build - container_name - image - volumes(s, d) - networks - environment(k: ${}) - depends_on - ports
+# build - container_name , image , volumes(- s:d) , (networks: -) , environment(k: ${}) , depends_on: - ,
+# ports -, restart,
+# driver_opts, type, o, device
+
 
 services:
 
@@ -53,7 +56,7 @@ services:
     networks:
       - project_network
     ports:
-      - "443:443"
+      - 443:443
     container_name: nginx_cntr
     restart: always
 

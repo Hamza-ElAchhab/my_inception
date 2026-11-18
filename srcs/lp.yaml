@@ -1,0 +1,16 @@
+
+# the keys that i used :
+# build - container_name , image , volumes(- s:d) , (networks: -) , environment(k: ${}) , depends_on: - ,
+# ports -, restart,
+# driver_opts, type, o, device
+
+
+services:
+
+  mariadb:
+    build: /req/mariadb
+    container_name: mariadb_cntr
+    image: mariadb
+    volumes
+      /var/lin/mysql:vol
+
