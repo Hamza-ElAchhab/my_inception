@@ -30,8 +30,8 @@ fi
 
 
 
-php /my_cli --allow-root --path=/wordpress option update siteurl ${URL}
-php /my_cli --allow-root --path=/wordpress option update home ${URL}
+php /my_cli --allow-root --path=/wordpress option update siteurl "https://hel-achh.42.fr"
+php /my_cli --allow-root --path=/wordpress option update home "https://hel-achh.42.fr"
 
 
 # urlsite mandatory for wordpress to know when src

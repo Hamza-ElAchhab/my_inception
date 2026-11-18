@@ -1,5 +1,10 @@
 
 
+all: build up
+	@echo "Done."
+
+
+
 build:
 	docker compose -f srcs/docker-compose.yml build
 
@@ -11,21 +16,20 @@ up:
 
 
 down:
+	docker compose -f srcs/docker-compose.yml down
+
+
+down_v:
 	docker compose -f srcs/docker-compose.yml down -v
-
-
-remove_cntrs:
-	docker container rm mariadb_cntr wordpress_cntr nginx_cntr
 
 
 remove_imgs:
 	docker compose -f srcs/docker-compose.yml down --rmi all
 
 
+clean: down_v remove_imgs
+	@echo "Cleaned."
 
-# all / up Create the host data directories if needed, then build and start the stack.
-# build       Build the images without starting (optional).
-# down       Stop and remove the containers (keep volumes).
 
-# Walk me through one page load from browser to database and back?
 
+.PHONY: all build up down down_v remove_imgs clean

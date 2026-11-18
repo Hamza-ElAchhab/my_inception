@@ -65,7 +65,7 @@ volumes:
 
   mariadb_vol:
     driver_opts:
-      type: none # no need fs type in bind m
+      type: none
       o: bind
       device: /home/hel-achh/data/mariadb
 
