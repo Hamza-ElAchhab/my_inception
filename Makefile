@@ -31,5 +31,7 @@ clean: down_v remove_imgs
 	@echo "Cleaned."
 
 
+re: clean all
+
 
 .PHONY: all build up down down_v remove_imgs clean

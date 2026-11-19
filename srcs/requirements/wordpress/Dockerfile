@@ -1,4 +1,5 @@
-# make a description
+# get Debian Bookworm. Installs PHP, PHP-FPM, cURL, and the MySQL PHP extension. Downloads and extracts WordPress,
+# downloads CLI for wordpress, copies script into cntr, and configures it as the container entrypoint.
 
 FROM debian:bookworm
 

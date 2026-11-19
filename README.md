@@ -23,7 +23,7 @@ Persistent data is stored on the host:
 ### Installation
 
 ```bash
-git clone <your-repository-url> inception
+git clone <your-repository-url: (intra or github)> inception
 cd inception
 ```
 
@@ -46,7 +46,7 @@ Open [https://hel-achh.42.fr](https://hel-achh.42.fr) and accept the browser war
 
 For more information, see `USER_DOC.md` for usage and `DEV_DOC.md` for development.
 
-**Available Makefile targets:** `all`, `build`, `up`, `down`, `down_v`, `remove_imgs`, `clean`.
+**Available Makefile targets:** `all`, `build`, `up`, `down`, `down_v`, `remove_imgs`, `clean`, re.
 
 ## Project Description
 

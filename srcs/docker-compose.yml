@@ -3,6 +3,7 @@
 # build - container_name , image , volumes(- s:d) , (networks: -) , environment(k: ${}) , depends_on: -, ports -, restart, driver_opts, type, o, device
 
 
+# 1234
 
 services:
 
@@ -55,7 +56,7 @@ services:
     networks:
       - project_network
     ports:
-      - 443:443
+      - 1234:443
     container_name: nginx_cntr
     restart: on-failure
 

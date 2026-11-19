@@ -18,6 +18,8 @@ make up       # Start containers
 make down     # Stop and remove containers
 make down_v   # Remove containers and named volumes
 make clean    # Remove containers, volumes and images
+make re       # Remove containers, volumes and images, and start again
+
 ```
 
 ## Access
@@ -46,7 +48,7 @@ Keep this file private and do not commit credentials to a public repository.
 | MariaDB database | `/home/hel-achh/data/mariadb` |
 | WordPress files | `/home/hel-achh/data/wordpress` |
 
-Data is stored in named volumes backed by these host directories.
+Data is stored in named volumes configurated by bind_m backed by these host directories.
 
 Removing containers or Docker volumes does not automatically delete the files stored in these directories.
 
@@ -66,12 +68,6 @@ docker logs wordpress_cntr
 docker logs nginx_cntr
 ```
 
-Test NGINX configuration:
-
-```bash
-docker exec nginx_cntr nginx -t
-```
-
 Check Docker volumes and network:
 
 ```bash
@@ -82,7 +78,5 @@ docker network ls
 Test HTTPS:
 
 ```bash
-curl -k -I https://hel-achh.42.fr
+curl -k https://hel-achh.42.fr/
 ```
-
-A successful response is generally `200 OK` or a redirect such as `301` or `302`.

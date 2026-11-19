@@ -36,7 +36,7 @@ Each service has its own Dockerfile and startup script. NGINX also has a configu
 ## Setup from Scratch
 
 ```bash
-git clone <repository-url> inception
+git clone <repository-url:(intra or github)> inception
 cd inception
 ```
 
@@ -62,6 +62,7 @@ make down         # Stop and remove containers
 make down_v       # Remove containers and volumes
 make remove_imgs  # Remove project images
 make clean        # Clean containers, volumes and images
+make re       # Remove containers, volumes and images, and start again
 ```
 
 Equivalent Compose command:
@@ -77,9 +78,7 @@ docker ps
 docker logs mariadb_cntr
 docker logs wordpress_cntr
 docker logs nginx_cntr
-docker exec -it mariadb_cntr mariadb -uroot -p
 docker exec -it wordpress_cntr bash
-docker exec nginx_cntr nginx -t
 docker volume ls
 docker network ls
 ```
