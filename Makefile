@@ -34,4 +34,4 @@ clean: down_v remove_imgs
 re: clean all
 
 
-.PHONY: all build up down down_v remove_imgs clean
+.PHONY: build up down down_v remove_imgs

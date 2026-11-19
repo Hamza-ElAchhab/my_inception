@@ -30,8 +30,8 @@ fi
 
 
 
-php /my_cli --allow-root --path=/wordpress option update siteurl "https://hel-achh.42.fr"
-php /my_cli --allow-root --path=/wordpress option update home "https://hel-achh.42.fr"
+php /my_cli --allow-root --path=/wordpress option update siteurl "https://hel-achh.42.fr/"
+php /my_cli --allow-root --path=/wordpress option update home "https://hel-achh.42.fr/"
 
 
 sed -i "s|^listen =.*|listen = 0.0.0.0:9000|" /etc/php/8.2/fpm/pool.d/www.conf

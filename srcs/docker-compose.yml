@@ -3,14 +3,12 @@
 # build - container_name , image , volumes(- s:d) , (networks: -) , environment(k: ${}) , depends_on: -, ports -, restart, driver_opts, type, o, device
 
 
-# 1234
-
 services:
 
 
   mariadb:
     build: requirements/mariadb
-    image: mariadb
+    image: mariadb:1.0
     volumes:
       - mariadb_vol:/var/lib/mysql
     networks:
@@ -26,7 +24,7 @@ services:
 
   wordpress:
     build: requirements/wordpress
-    image: wordpress
+    image: wordpress:1.0
     volumes:
       - wordpress_vol:/wordpress
     networks:
@@ -50,13 +48,13 @@ services:
 
   nginx:
     build: requirements/nginx
-    image: nginx
+    image: nginx:1.0
     volumes:
       - wordpress_vol:/wordpress
     networks:
       - project_network
     ports:
-      - 1234:443
+      - 443:443
     container_name: nginx_cntr
     restart: on-failure
 
