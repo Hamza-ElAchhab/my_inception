@@ -10,8 +10,8 @@ build:
 
 
 up:
-	mkdir -p /home/hel-achh/data/wordpress
-	mkdir -p /home/hel-achh/data/mariadb
+	sudo mkdir -p /home/hel-achh/data/wordpress
+	sudo mkdir -p /home/hel-achh/data/mariadb
 	docker compose -f srcs/docker-compose.yml up -d
 
 
@@ -35,3 +35,4 @@ re: clean all
 
 
 .PHONY: build up down down_v remove_imgs
+
