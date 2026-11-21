@@ -1,6 +1,7 @@
 #!/bin/bash
 
 # check if already init or not, then run the server and create a database and a user and give him perm to database
+# then shutdown the temp proccess and run it with a main proccess
 
 if [ ! -f /var/lib/mysql/initialized ]; then
     mariadbd --user=mysql &

@@ -5,15 +5,21 @@ file:///run/user/103873/doc/698b4cdd/Inception_Learners_Guide.pdf
 
 
 
-
--> recd
-
 -> read subj again
+
+-> names hardcode
 
 -> good practiced DF.
 
--> fix DOCS.
+-> test DOCS.
 
 
-# Walk me through one page load from browser to database and back?
+Walk me through one page load from browser to database and back?
 
+Any credentials, API keys, or passwords found in your Git repository
+
+You can store your variables (as a domain name) in an environment
+variable file like .env
+
+
+check if yours are good practice and why.

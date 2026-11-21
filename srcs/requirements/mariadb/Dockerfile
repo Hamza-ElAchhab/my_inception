@@ -4,7 +4,8 @@ FROM debian:bookworm
 
 RUN apt update && apt install mariadb-server -y \
     && mkdir /run/mysqld && \
-    chmod 777 /run/mysqld
+    chmod 777 /run/mysqld && \
+    rm -rf /var/lib/apt/lists/*
 
 COPY tools/script.sh /script.sh
 
